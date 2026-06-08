@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Arrow Strength — 12 Week Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8372D;
+    --dark: #141414;
+    --mid: #1E1E1E;
+    --card: #252525;
+    --border: #333;
+    --text: #E8E8E8;
+    --muted: #888;
+    --accent: #E8A020;
+    --green: #4CAF50;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--mid);
+    border-bottom: 2px solid var(--red);
+    padding: 20px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  header .subtitle {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .phase-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .phase-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.15s;
+  }
+
+  .phase-btn:hover { border-color: var(--red); color: var(--text); }
+  .phase-btn.active { background: var(--red); border-color: var(--red); color: white; }
+
+  .phase-description {
+    max-width: 900px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+  }
+
+  .phase-banner {
+    background: linear-gradient(135deg, #1a0f0f 0%, var(--card) 100%);
+    border-left: 3px solid var(--red);
+    border-radius: 6px;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .phase-banner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .phase-banner .phase-meta {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .phase-banner p {
+    font-size: 13.5px;
+    color: #bbb;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .phase-goals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .goal-tag {
+    background: rgba(200, 55, 45, 0.12);
+    border: 1px solid rgba(200, 55, 45, 0.3);
+    color: #e88;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .week-nav {
+    max-width: 900px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .week-btn {
+    width: 38px;
+    height: 38px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .week-btn:hover { border-color: var(--accent); color: var(--text); }
+  .week-btn.active { background: var(--accent); border-color: var(--accent); color: var(--dark); }
+  .week-btn.deload { border-color: #444; }
+  .week-btn.deload.active { background: #555; border-color: #666; color: white; }
+
+  .week-label {
+    max-width: 900px;
+    margin: 12px auto 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .week-label h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .week-label .week-focus {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .deload-badge {
+    background: #444;
+    color: #aaa;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 24px 60px;
+  }
+
+  .day-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .day-grid { grid-template-columns: 1fr; }
+  }
+
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .day-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .day-focus {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .day-type-badge {
+    margin-left: auto;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  .badge-strength { background: rgba(200,55,45,0.15); color: var(--red); border: 1px solid rgba(200,55,45,0.3); }
+  .badge-core { background: rgba(232,160,32,0.15); color: var(--accent); border: 1px solid rgba(232,160,32,0.3); }
+  .badge-rest { background: rgba(100,100,100,0.15); color: var(--muted); border: 1px solid rgba(100,100,100,0.3); }
+
+  .exercise-list {
+    padding: 10px 0;
+  }
+
+  .exercise-item {
+    padding: 9px 16px;
+    border-bottom: 1px solid #2a2a2a;
+    cursor: pointer;
+    transition: background 0.1s;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .exercise-item:last-child { border-bottom: none; }
+  .exercise-item:hover { background: #2c2c2c; }
+  .exercise-item.completed { opacity: 0.5; }
+  .exercise-item.completed .ex-name { text-decoration: line-through; }
+
+  .ex-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .ex-detail {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  .ex-sport-tags {
+    display: flex;
+    gap: 4px;
+    margin-top: 3px;
+    flex-wrap: wrap;
+  }
+
+  .sport-tag {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+
+  .tag-swim { background: rgba(64,164,220,0.15); color: #4ab0e8; }
+  .tag-bike { background: rgba(100,200,100,0.15); color: #80c880; }
+  .tag-run { background: rgba(220,120,60,0.15); color: #e8905a; }
+  .tag-core { background: rgba(180,100,220,0.15); color: #c07be0; }
+  .tag-all { background: rgba(200,55,45,0.1); color: #e07070; }
+
+  .ex-sets {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .check-circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+
+  .exercise-item.completed .check-circle {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .check-circle svg { display: none; }
+  .exercise-item.completed .check-circle svg { display: block; }
+
+  .day-rest-card {
+    padding: 20px 16px;
+    color: var(--muted);
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .warmup-note {
+    max-width: 900px;
+    margin: 0 auto 16px;
+    padding: 0 24px;
+  }
+
+  .warmup-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #bbb;
+  }
+
+  .warmup-box strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .progress-bar-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--accent));
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .legend {
+    max-width: 900px;
+    margin: 24px auto 0;
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .legend-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .tooltip-area {
+    position: relative;
+    display: inline-block;
+  }
+
+  .ex-name-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .info-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #333;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: help;
+    font-style: italic;
+  }
+
+  .tooltip {
+    display: none;
+    position: absolute;
+    left: 20px;
+    top: -4px;
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #ccc;
+    width: 220px;
+    z-index: 200;
+    line-height: 1.5;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .tooltip-area:hover .tooltip { display: block; }
+
+  .week-progress-summary {
+    max-width: 900px;
+    margin: 20px auto 0;
+    padding: 0 24px;
+  }
+
+  .progress-summary-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .progress-summary-box .pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .progress-summary-box .pct-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .reset-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .reset-btn:hover { border-color: var(--red); color: var(--red); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>Red Arrow Strength</h1>
+    <span class="subtitle">12-Week Home Program — Endurance & Aesthetics</span>
+  </div>
+</header>
+
+<div class="phase-nav" id="phaseNav"></div>
+<div class="phase-description" id="phaseDescription"></div>
+<div class="week-nav" id="weekNav"></div>
+<div class="week-label" id="weekLabel"></div>
+
+<div class="progress-bar-wrap">
+  <span class="progress-label">Program</span>
+  <div class="progress-bar"><div class="progress-fill" id="programProgress" style="width:0%"></div></div>
+  <span class="progress-label" id="programProgressLabel">0 / 12 weeks</span>
+</div>
+
+<div class="warmup-note">
+  <div class="warmup-box">
+    <strong>Every session warmup (5–8 min):</strong> 20 leg swings each direction · 15 hip circles · 10 world's greatest stretch · 10 band pull-aparts · 5 slow cat/cow · 30 sec dead hang or doorframe stretch
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-label">Sport relevance:</span>
+  <span class="sport-tag tag-swim">Swim</span>
+  <span class="sport-tag tag-bike">Bike</span>
+  <span class="sport-tag tag-run">Run</span>
+  <span class="sport-tag tag-core">Core</span>
+  <span class="sport-tag tag-all">All</span>
+</div>
+
+<div class="week-progress-summary" id="weekProgressSummary"></div>
+
+<main>
+  <div class="day-grid" id="dayGrid"></div>
+</main>
+
+<script>
+const PHASES = [
+  {
+    id: 1,
+    name: "Foundation",
+    weeks: [1, 2, 3, 4],
+    deload: 4,
+    focus: "Movement quality, stability, tendon prep",
+    description: "Build the neuromuscular base. Every rep is about position, not load. You're teaching your body to move well under light stress. This phase protects joints and prepares tendons for heavier work ahead.",
+    goals: ["Hip Stability", "Shoulder Health", "Core Activation", "Ankle Mobility"]
+  },
+  {
+    id: 2,
+    name: "Build",
+    weeks: [5, 6, 7, 8],
+    deload: 8,
+    focus: "Progressive overload, power endurance",
+    description: "Start pushing load. Weights go up, rest comes down. This is where you start building visible muscle and sport-specific strength — the glutes that hold bike position, the lats that drive your swim pull.",
+    goals: ["Glute Strength", "Pulling Power", "Single-Leg Stability", "Anti-Rotation Core"]
+  },
+  {
+    id: 3,
+    name: "Peak",
+    weeks: [9, 10, 11, 12],
+    deload: 12,
+    focus: "Power, metabolic conditioning, definition",
+    description: "Heavier, faster, tighter rest. This phase drives the aesthetic gains and sport-specific power. You'll feel stronger in the saddle and on the run. Week 12 is a full deload — you've earned it.",
+    goals: ["Peak Power", "Metabolic Conditioning", "Race-Ready Strength", "Full Body Composition"]
+  }
+];
+
+const WEEK_FOCUSES = {
+  1: "Learn the patterns · Light load · Perfect form",
+  2: "Add a little load · Same movements",
+  3: "Push the reps · Feel the burn",
+  4: "DELOAD — Cut volume 40%, same movements",
+  5: "New exercises · Moderate load",
+  6: "Increase load · Reduce rest",
+  7: "Push sets and reps hard",
+  8: "DELOAD — Active recovery week",
+  9: "Heavy for you · Full effort",
+  10: "Add tempo (slow eccentric)",
+  11: "Peak volume week",
+  12: "DELOAD — Flush the legs, recover, reflect"
+};
+
+const PROGRAMS = {
+  1: {
+    days: [
+      {
+        label: "Day A", focus: "Lower Body — Hip & Glute", type: "strength",
+        exercises: [
+          { name: "Goblet Squat", detail: "3×10 · KB or dumbbell", sets: "3×10", sports: ["bike","run"], tip: "Hold weight at chest, sit deep, drive knees out. Great for bike power and run mechanics." },
+          { name: "Romanian Deadlift", detail: "3×10 · Dumbbells", sets: "3×10", sports: ["bike","run"], tip: "Hinge at hips, soft knee, feel the hamstring stretch. Key for run injury prevention." },
+          { name: "Lateral Band Walk", detail: "3×15 each direction · Band", sets: "3×15/side", sports: ["bike","run"], tip: "Loop band above knees. Keep tension the whole way. Activates glute med — critical for bike stability and run knee tracking." },
+          { name: "Single-Leg Glute Bridge", detail: "3×12/side · Bodyweight", sets: "3×12/side", sports: ["bike","run","core"], tip: "Lie on back, one heel on ground, drive hip up. Feel glute squeeze at top. Don't let pelvis drop." },
+          { name: "Calf Raise (single leg)", detail: "3×15/side · Bodyweight or hold weight", sets: "3×15/side", sports: ["run"], tip: "Go slow down. Achilles and soleus strength — big for run injury prevention." },
+          { name: "Band Clamshell", detail: "3×15/side · Light-medium band", sets: "3×15/side", sports: ["bike","run"], tip: "On side, feet together, open top knee like a clamshell. Glute med activation." }
+        ]
+      },
+      {
+        label: "Day B", focus: "Upper Body — Pull & Shoulder", type: "strength",
+        exercises: [
+          { name: "Band Pull-Apart", detail: "3×20 · Band", sets: "3×20", sports: ["swim"], tip: "Arms straight, pull band to chest. Critical for swim posture and rotator cuff health." },
+          { name: "Dumbbell Row (single arm)", detail: "3×10/side", sets: "3×10/side", sports: ["swim","bike"], tip: "Brace core, pull elbow to hip. Lats are your swim engine and your bike power transfer." },
+          { name: "Bent-Over Rear Delt Fly", detail: "3×12 · Light DBs", sets: "3×12", sports: ["swim"], tip: "Hinge forward, arms arc back. Targets posterior shoulder — often the weak link in swimmers." },
+          { name: "Dumbbell Bicep Curl", detail: "3×12", sets: "3×12", sports: ["swim"], tip: "Arms look great. Also directly supports swim pull and running arm drive." },
+          { name: "Overhead Press (seated or standing)", detail: "3×10 · DBs", sets: "3×10", sports: ["swim","all"], tip: "Brace core like you're about to get punched. Full lockout overhead." },
+          { name: "Band Face Pull", detail: "3×15 · Band at eye height", sets: "3×15", sports: ["swim"], tip: "Pull to face, elbows high and wide. The single best exercise for shoulder longevity." }
+        ]
+      },
+      {
+        label: "Day C", focus: "Core & Stability", type: "core",
+        exercises: [
+          { name: "Dead Bug", detail: "3×8/side · Slow", sets: "3×8/side", sports: ["core","all"], tip: "Lower back stays pressed to floor the entire time. Opposite arm and leg extend slowly. This is the foundation of everything." },
+          { name: "Pallof Press", detail: "3×10/side · Band or cable", sets: "3×10/side", sports: ["core","bike","run"], tip: "Anchor band at chest height. Press straight out, resist rotation. Anti-rotation = injury prevention." },
+          { name: "Yoga Ball Rollout", detail: "3×10 · Ball", sets: "3×10", sports: ["core","swim"], tip: "Kneel, roll ball forward until arms are extended, pull back. Like a wheel rollout but more joint-friendly." },
+          { name: "Bird Dog", detail: "3×10/side · Slow", sets: "3×10/side", sports: ["core","run"], tip: "Opposite arm and leg, don't let hips rotate. Pause at top. Lumbar stability for running and bike position." },
+          { name: "Side Plank", detail: "3×20-30 sec/side", sets: "3×20-30s/side", sports: ["core","bike"], tip: "Stack feet or stagger. Drive hip up. Lateral core is what keeps you efficient on the bike for 4+ hours." },
+          { name: "Hip Flexor Stretch + Activation", detail: "2×45 sec/side · Hip flexor lunge", sets: "2×45s/side", sports: ["bike","run"], tip: "Bike and run both create tight hip flexors. Stretch AND fire the glute in the lunge position." }
+        ]
+      },
+      {
+        label: "Day D", focus: "Full Body Power Endurance", type: "strength",
+        exercises: [
+          { name: "KB or DB Swing", detail: "4×15 · Light-moderate KB", sets: "4×15", sports: ["bike","run","all"], tip: "Hip hinge drive — not a squat. Powerful glute squeeze at top. This is the closest gym movement to running." },
+          { name: "Reverse Lunge", detail: "3×10/side · Bodyweight or DBs", sets: "3×10/side", sports: ["run","bike"], tip: "Step back, front knee tracks toes. Great for run single-leg strength without knee stress." },
+          { name: "Push-Up", detail: "3×max reps · Bodyweight", sets: "3×AMRAP", sports: ["swim","all"], tip: "From knees if needed. Chest to floor. Every rep earns a little more shoulder stability for open water." },
+          { name: "Band Bicycle Crunch", detail: "3×20 total · Band resistance optional", sets: "3×20", sports: ["core","all"], tip: "Slow rotation with full extension. Obliques are your run and swim rotational engine." },
+          { name: "Yoga Ball Hamstring Curl", detail: "3×10 · Ball", sets: "3×10", sports: ["run","bike"], tip: "Hips up, roll ball in with heels, roll out. Killer for hamstring strength and knee health." },
+          { name: "Farmer Carry", detail: "3×30 sec · DBs or KBs", sets: "3×30s", sports: ["all"], tip: "Walk tall, shoulders down and back, brace core. Builds total body stability and posture that matters everywhere." }
+        ]
+      }
+    ]
+  }
+};
+
+// Build all 12 weeks of programming from the base with progressions
+function getProgram(weekNum) {
+  const base = JSON.parse(JSON.stringify(PROGRAMS[1]));
+  const phase = weekNum <= 4 ? 1 : weekNum <= 8 ? 2 : 3;
+  const isDeload = [4, 8, 12].includes(weekNum);
+
+  if (isDeload) {
+    return {
+      days: base.days.map(day => ({
+        ...day,
+        exercises: day.exercises.map(ex => ({
+          ...ex,
+          detail: ex.detail.replace(/3×/g, '2×').replace(/4×/g, '2×').replace(/AMRAP/, '6'),
+          sets: ex.sets.replace(/3×/g, '2×').replace(/4×/g, '2×').replace(/AMRAP/, '6'),
+          isDeload: true
+        }))
+      }))
+    };
+  }
+
+  if (phase === 2) {
+    const phase2Exercises = {
+      0: [ // Lower body
+        { name: "Back Squat (DB Goblet → Front Rack)", detail: "4×8 · Increase load from Phase 1", sets: "4×8", sports: ["bike","run"], tip: "Hold DBs at shoulders (front rack). Go heavier than Phase 1 goblet squat. Build that quad power." },
+        { name: "Stiff-Leg Deadlift", detail: "4×8 · DBs", sets: "4×8", sports: ["run","bike"], tip: "Like RDL but keep legs nearly straight. Pure hamstring lengthening under load." },
+        { name: "Step-Up (weighted)", detail: "3×10/side · DBs + a chair or step", sets: "3×10/side", sports: ["bike","run"], tip: "Drive through heel, don't push off back foot. Mimics hill climbing mechanics exactly." },
+        { name: "Bulgarian Split Squat", detail: "3×8/side · DBs or bodyweight", sets: "3×8/side", sports: ["run","bike"], tip: "Rear foot on couch or ball. Front foot forward. This will humble you. Single-leg king." },
+        { name: "Banded Glute Kickback", detail: "3×15/side · Band", sets: "3×15/side", sports: ["bike","run"], tip: "On all fours, band at ankle. Drive heel to ceiling. Pure glute max — the motor for everything." },
+        { name: "Jump Rope or High Knees", detail: "3×30 sec · Bodyweight", sets: "3×30s", sports: ["run"], tip: "No jump rope? High knees with fast arm drive. Ankle spring and foot strike mechanics." }
+      ],
+      1: [ // Upper body
+        { name: "Chest-Supported Row", detail: "4×10 · DBs on yoga ball", sets: "4×10", sports: ["swim","bike"], tip: "Lie face down on incline or ball. Both arms row simultaneously. Pure lat and rhomboid strength." },
+        { name: "Dumbbell Pullover", detail: "3×12 · One DB", sets: "3×12", sports: ["swim"], tip: "Lie across bench or ball, lower DB behind head, pull over to hips. Lat definition and swim-specific strength." },
+        { name: "Arnold Press", detail: "3×10 · DBs", sets: "3×10", sports: ["swim","all"], tip: "Start with palms facing you, rotate as you press. Full shoulder development." },
+        { name: "Tricep Kickback", detail: "3×12 · DBs", sets: "3×12", sports: ["swim","all"], tip: "Hinge forward, upper arm stays still, extend elbow. Arms look great. Also finishes your swim push phase." },
+        { name: "Hammer Curl", detail: "3×12 · DBs", sets: "3×12", sports: ["swim","all"], tip: "Neutral grip (thumbs up). Targets brachialis — the muscle that makes arms look thick and strong." },
+        { name: "Band External Rotation", detail: "3×15/side · Light band", sets: "3×15/side", sports: ["swim"], tip: "Elbow at 90°, rotate hand out against band. Non-negotiable for rotator cuff longevity in swimmers." }
+      ],
+      2: [ // Core
+        { name: "Hollow Body Hold", detail: "3×20-30 sec", sets: "3×20-30s", sports: ["core","swim","all"], tip: "Arms overhead, lower back pressed down, legs extended low. The body position that transfers directly to swim streamline." },
+        { name: "Pallof Press with Rotation", detail: "3×10/side · Band", sets: "3×10/side", sports: ["core","bike","run"], tip: "Add a slight torso rotation at the end of the press. Anti-rotation + rotation = full core athleticism." },
+        { name: "Yoga Ball Pike", detail: "3×10", sets: "3×10", sports: ["core","swim"], tip: "Feet on ball in push-up position. Pike hips up to ceiling. Upper abs and hip flexor strength." },
+        { name: "Copenhagen Plank", detail: "3×15-20 sec/side", sets: "3×15-20s/side", sports: ["core","run","bike"], tip: "Side plank with top foot on a chair or step. Inner thigh and hip stability. Huge for run knee health." },
+        { name: "Russian Twist", detail: "3×20 total · Light DB or ball", sets: "3×20", sports: ["core","swim"], tip: "Slow rotation, touch hand to floor each side. Full spinal rotation = swim efficiency." },
+        { name: "Single-Leg Hip Bridge on Ball", detail: "3×12/side · Ball", sets: "3×12/side", sports: ["core","bike","run"], tip: "Shoulders on ball, one foot drives hips up. Unstable surface demands full glute firing." }
+      ],
+      3: [ // Full body
+        { name: "KB or DB Swing", detail: "4×20 · Moderate KB", sets: "4×20", sports: ["bike","run","all"], tip: "Higher reps, same perfect form. This is power endurance — exactly what you need for the last 10 miles of a bike." },
+        { name: "Reverse Lunge to Knee Drive", detail: "3×10/side · DBs", sets: "3×10/side", sports: ["run","bike"], tip: "Step back into lunge, then drive rear knee up on the return. Explosive hip flexor and glute combination." },
+        { name: "Renegade Row", detail: "3×8/side · DBs", sets: "3×8/side", sports: ["swim","core","all"], tip: "Push-up position, row one DB while holding the other. Anti-rotation + lat strength. Brutal and effective." },
+        { name: "Band Pull-Apart Superset with Pushup", detail: "3×(15+max) · Band + BW", sets: "3×(15+max)", sports: ["swim","all"], tip: "No rest between pull-aparts and push-ups. Shoulder fatigue protocol — makes race-day feel easy." },
+        { name: "Yoga Ball Hamstring Curl + Hip Lift", detail: "3×12 · Ball", sets: "3×12", sports: ["run","bike"], tip: "Add a pause at the top. Increase range of motion. Same movement, more demand." },
+        { name: "Suitcase Carry", detail: "3×30 sec/side · One heavy DB", sets: "3×30s/side", sports: ["core","all"], tip: "One side only. Resist the lean. Lateral core strength that carries directly into run posture." }
+      ]
+    };
+    return {
+      days: base.days.map((day, i) => ({
+        ...day,
+        exercises: phase2Exercises[i] || day.exercises
+      }))
+    };
+  }
+
+  if (phase === 3) {
+    const phase3Exercises = {
+      0: [
+        { name: "DB Front Squat", detail: "4×6 · Heavy DBs", sets: "4×6", sports: ["bike","run"], tip: "Heavier load, fewer reps. True strength work. Quad and glute power for the last 30 min of a race." },
+        { name: "Tempo RDL", detail: "4×8 · 4-second lowering", sets: "4×8", sports: ["run","bike"], tip: "4 seconds down, pause at stretch, explode up. Eccentric hamstring strength prevents strains at fatigue." },
+        { name: "Bulgarian Split Squat (heavy)", detail: "4×6/side · DBs", sets: "4×6/side", sports: ["run","bike"], tip: "Go as heavy as you can with perfect form. This is your biggest single-leg strength movement." },
+        { name: "Lateral Squat", detail: "3×10/side · Bodyweight or light DB", sets: "3×10/side", sports: ["bike","run"], tip: "Wide stance, shift weight to one side and squat that leg. Frontal plane strength for bike stability." },
+        { name: "Explosive Step-Up", detail: "3×8/side · No weight or light", sets: "3×8/side", sports: ["run","bike"], tip: "Drive up with power, pause at top. Rate of force development — this is the speed payoff from Phase 2." },
+        { name: "KB Swing (heavy)", detail: "4×15 · Heavy KB", sets: "4×15", sports: ["bike","run","all"], tip: "Go as heavy as you can with a perfect hinge. Full glute power development." }
+      ],
+      1: [
+        { name: "Chest-Supported Row (heavy)", detail: "4×8 · Heavy DBs", sets: "4×8", sports: ["swim","bike"], tip: "Max load you can control. Strong lats = a 2-minute swim improvement without any other changes." },
+        { name: "Single-Arm Overhead Press", detail: "4×8/side · DB", sets: "4×8/side", sports: ["swim","all"], tip: "One arm, standing. Demands core stability. Develops the shoulder strength for open water and overhead power." },
+        { name: "Dumbbell Pullover (heavy)", detail: "4×10 · One DB", sets: "4×10", sports: ["swim"], tip: "Increase the load significantly from Phase 2. Lat hypertrophy phase — this is what makes the V-taper." },
+        { name: "Tricep Overhead Extension", detail: "3×12 · One DB or two", sets: "3×12", sports: ["swim","all"], tip: "Arms behind head, elbows point up, lower and extend. Long head tricep — the biggest visible part of the arm." },
+        { name: "Isometric Band Pull with Rotation", detail: "3×10/side · Band", sets: "3×10/side", sports: ["swim","core"], tip: "Hold the pull-apart position and add a torso rotation. Swim-specific rotational pulling pattern." },
+        { name: "Push-Up Variation", detail: "3×max · Decline or archer", sets: "3×AMRAP", sports: ["swim","all"], tip: "Decline (feet on couch) hits upper chest. Archer push-up (shift weight to one side) builds single-arm strength." }
+      ],
+      2: [
+        { name: "Hollow Body Rock", detail: "3×15 · Bodyweight", sets: "3×15", sports: ["core","swim","all"], tip: "Full hollow position, rock forward and back. Dynamic streamline strength. The swim-to-run transition core exercise." },
+        { name: "Weighted Pallof Press", detail: "3×12/side · Heavy band", sets: "3×12/side", sports: ["core","bike","run"], tip: "Use the heaviest band you have. Max anti-rotation challenge." },
+        { name: "Yoga Ball Rollout (advanced)", detail: "3×8 · Full extension", sets: "3×8", sports: ["core","swim"], tip: "Get as low as possible without losing position. Pause at full extension for 2 seconds." },
+        { name: "Copenhagen Plank (elevated)", detail: "3×20-25 sec/side", sets: "3×25s/side", sports: ["core","run","bike"], tip: "Feet higher = more adductor demand. Maximum lateral core strength." },
+        { name: "Turkish Get-Up", detail: "3×3/side · KB or DB", sets: "3×3/side", sports: ["core","all"], tip: "The whole-body integration movement. Every joint, every plane. Do these slowly and intentionally." },
+        { name: "Yoga Ball Hip Extension Hold", detail: "3×30 sec · Ball under hips", sets: "3×30s", sports: ["core","bike"], tip: "Ball under hips, arms extended, hold the extension. Race-specific aero position endurance." }
+      ],
+      3: [
+        { name: "KB Complex: Swing → Clean → Press", detail: "3×5/side · KB", sets: "3×5/side", sports: ["all"], tip: "All three movements back to back without putting it down. Total body power endurance. This is the hardest thing in the program." },
+        { name: "Reverse Lunge to Overhead Press", detail: "3×8/side · DBs", sets: "3×8/side", sports: ["run","swim","all"], tip: "Step back, lunge down, press at top of return. Full kinetic chain integration." },
+        { name: "Renegade Row (heavy)", detail: "3×10/side · DBs", sets: "3×10/side", sports: ["swim","core","all"], tip: "Go heavier. Control is key. This is your peak strength movement for the upper body." },
+        { name: "Band Sprint Circuit", detail: "3×20 sec max · Band around hips", sets: "3×20s max", sports: ["run","all"], tip: "Anchor band behind you, resist the pull and drive knees hard. Resisted sprint mechanics." },
+        { name: "Single-Leg Yoga Ball Hamstring Curl", detail: "3×10/side · Ball", sets: "3×10/side", sports: ["run","bike"], tip: "One leg only. Incredibly difficult. Unilateral hamstring strength for the final miles." },
+        { name: "Suitcase Carry (heavy + long)", detail: "3×45 sec/side · Heaviest DB", sets: "3×45s/side", sports: ["core","all"], tip: "Max load, max time. The ultimate core integration finisher. Walk with total control." }
+      ]
+    };
+    return {
+      days: base.days.map((day, i) => ({
+        ...day,
+        exercises: phase3Exercises[i] || day.exercises
+      }))
+    };
+  }
+
+  return base;
+}
+
+let currentWeek = 1;
+let completed = JSON.parse(localStorage.getItem('strengthCompleted') || '{}');
+
+function getPhase(week) {
+  return PHASES.find(p => p.weeks.includes(week));
+}
+
+function isDeload(week) {
+  return [4, 8, 12].includes(week);
+}
+
+function renderPhaseNav() {
+  const nav = document.getElementById('phaseNav');
+  nav.innerHTML = PHASES.map(p => `
+    <button class="phase-btn ${getPhase(currentWeek).id === p.id ? 'active' : ''}" onclick="jumpToPhase(${p.id})">
+      Phase ${p.id}: ${p.name}
+    </button>
+  `).join('');
+}
+
+function renderPhaseDescription() {
+  const phase = getPhase(currentWeek);
+  const el = document.getElementById('phaseDescription');
+  el.innerHTML = `
+    <div class="phase-banner">
+      <div>
+        <div class="phase-meta">Phase ${phase.id} · Weeks ${phase.weeks[0]}–${phase.weeks[phase.weeks.length-1]}</div>
+        <h2>Phase ${phase.id}: ${phase.name}</h2>
+        <div class="phase-meta" style="margin-top:2px">${phase.focus}</div>
+      </div>
+      <div>
+        <p>${phase.description}</p>
+        <div class="phase-goals">
+          ${phase.goals.map(g => `<span class="goal-tag">${g}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderWeekNav() {
+  const nav = document.getElementById('weekNav');
+  nav.innerHTML = Array.from({length: 12}, (_, i) => i + 1).map(w => `
+    <button class="week-btn ${isDeload(w) ? 'deload' : ''} ${w === currentWeek ? 'active' : ''}" onclick="selectWeek(${w})" title="${WEEK_FOCUSES[w]}">
+      ${w}
+    </button>
+  `).join('');
+}
+
+function renderWeekLabel() {
+  const el = document.getElementById('weekLabel');
+  const deload = isDeload(currentWeek);
+  el.innerHTML = `
+    <h3>Week ${currentWeek}</h3>
+    ${deload ? '<span class="deload-badge">Deload</span>' : ''}
+    <span class="week-focus">${WEEK_FOCUSES[currentWeek]}</span>
+  `;
+}
+
+function renderProgress() {
+  const pct = ((currentWeek - 1) / 12) * 100;
+  document.getElementById('programProgress').style.width = pct + '%';
+  document.getElementById('programProgressLabel').textContent = `Week ${currentWeek} of 12`;
+}
+
+function getKey(week, dayIdx, exIdx) {
+  return `w${week}_d${dayIdx}_e${exIdx}`;
+}
+
+function toggleExercise(week, dayIdx, exIdx) {
+  const key = getKey(week, dayIdx, exIdx);
+  completed[key] = !completed[key];
+  localStorage.setItem('strengthCompleted', JSON.stringify(completed));
+  renderDays();
+  renderWeekSummary();
+}
+
+function renderWeekSummary() {
+  const program = getProgram(currentWeek);
+  let total = 0, done = 0;
+  program.days.forEach((day, di) => {
+    if (day.type !== 'rest') {
+      day.exercises.forEach((_, ei) => {
+        total++;
+        if (completed[getKey(currentWeek, di, ei)]) done++;
+      });
+    }
+  });
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('weekProgressSummary').innerHTML = `
+    <div class="progress-summary-box">
+      <div>
+        <div class="pct">${pct}%</div>
+        <div class="pct-label">Week ${currentWeek} complete · ${done}/${total} exercises checked off</div>
+      </div>
+      <button class="reset-btn" onclick="resetWeek()">Reset Week</button>
+    </div>
+  `;
+}
+
+function resetWeek() {
+  const program = getProgram(currentWeek);
+  program.days.forEach((day, di) => {
+    day.exercises.forEach((_, ei) => {
+      delete completed[getKey(currentWeek, di, ei)];
+    });
+  });
+  localStorage.setItem('strengthCompleted', JSON.stringify(completed));
+  renderDays();
+  renderWeekSummary();
+}
+
+function renderDays() {
+  const program = getProgram(currentWeek);
+  const grid = document.getElementById('dayGrid');
+  grid.innerHTML = program.days.map((day, di) => {
+    const badgeClass = day.type === 'strength' ? 'badge-strength' : day.type === 'core' ? 'badge-core' : 'badge-rest';
+    const badgeLabel = day.type === 'strength' ? 'Strength' : day.type === 'core' ? 'Core' : 'Rest';
+
+    if (day.type === 'rest') {
+      return `<div class="day-card">
+        <div class="day-header">
+          <div>
+            <div class="day-label">${day.label}</div>
+            <div class="day-focus">${day.focus}</div>
+          </div>
+          <span class="day-type-badge badge-rest">${badgeLabel}</span>
+        </div>
+        <div class="day-rest-card">${day.restNote || 'Active recovery. Walk the dog. Stretch. Foam roll. You earned it.'}</div>
+      </div>`;
+    }
+
+    const exHtml = day.exercises.map((ex, ei) => {
+      const key = getKey(currentWeek, di, ei);
+      const done = !!completed[key];
+      const sportTags = ex.sports.map(s => `<span class="sport-tag tag-${s}">${s}</span>`).join('');
+      return `
+        <div class="exercise-item ${done ? 'completed' : ''}" onclick="toggleExercise(${currentWeek}, ${di}, ${ei})">
+          <div>
+            <div class="ex-name-wrap">
+              <div class="ex-name">${ex.name}</div>
+              <div class="tooltip-area" onclick="event.stopPropagation()">
+                <div class="info-icon">i</div>
+                <div class="tooltip">${ex.tip}</div>
+              </div>
+            </div>
+            <div class="ex-detail">${ex.detail}</div>
+            <div class="ex-sport-tags">${sportTags}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="ex-sets">${ex.sets}</div>
+            <div class="check-circle">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `<div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-label">${day.label}</div>
+          <div class="day-focus">${day.focus}</div>
+        </div>
+        <span class="day-type-badge ${badgeClass}">${badgeLabel}</span>
+      </div>
+      <div class="exercise-list">${exHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectWeek(w) {
+  currentWeek = w;
+  renderAll();
+}
+
+function jumpToPhase(phaseId) {
+  const phase = PHASES.find(p => p.id === phaseId);
+  currentWeek = phase.weeks[0];
+  renderAll();
+}
+
+function renderAll() {
+  renderPhaseNav();
+  renderPhaseDescription();
+  renderWeekNav();
+  renderWeekLabel();
+  renderProgress();
+  renderDays();
+  renderWeekSummary();
+}
+
+renderAll();
+</script>
+</body>
+</html>
